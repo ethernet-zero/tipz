@@ -50,6 +50,11 @@ Tipz.prototype.show = function(DOMObject, tip) {
   canvas.id = this.id;
   canvas.className = 'canvas';
   
+  // Set opacity of the canvas 
+  if (!this.isSolid) {
+    canvas.style.opacity = this.opacity;
+  }
+  
   // Arrow printing
   var arrow = document.createElement('div');
   arrow.className = 'arrow';
