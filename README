@@ -1,10 +1,12 @@
+*THIS IS WORK IN PROGRESS, SO USE IT AT YOUR OWN RISK*
+
 This is a simply JavaScript library that allows you to create tooltips for a DOM object.
 
 To start using it you only need to include the .js file and it associated style sheet.
 
 Once you do that, create an instance of the class and make calls to the "show" method on the mouseover event and "hide" on the mouseout event of the DOM object.
 
-*THIS IS WORK IN PROGRESS, SO USE IT AT YOUR OWN RISK*
+Right now Tipz just is shown on the screen, in future changes I will positioning it on the right place of the webpage according to the position of the DOM object associated.
 
 Thanks for your interest. 
 
