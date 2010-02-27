@@ -98,41 +98,41 @@ Tipz.prototype.show = function(DOMObject, tip) {
 	@return      arrow	The arrow div to be appended to the canvas.
 */
 Tipz.prototype.makeArrow = function() {
-	// Arrow printing
-	var arrow = document.createElement('div');
-	arrow.className = 'tipz_arrow';
-	  // First row 
-	var firstRow = document.createElement('div');
-	firstRow.className = 'tipz_row';
-	firstRow.style.width = '1px';
-	firstRow.style.backgroundColor = this.backgroundColor;
-	arrow.appendChild(firstRow);
-	  // Second row
-	var secondRow = document.createElement('div');
-	secondRow.className = 'tipz_row';
-	secondRow.style.width = '3px';
-	secondRow.style.backgroundColor = this.backgroundColor;
-	arrow.appendChild(secondRow);
-	  // Third row
-	var thirdRow = document.createElement('div');
-	thirdRow.className = 'tipz_row';
-	thirdRow.style.width = '5px';
-	thirdRow.style.backgroundColor = this.backgroundColor;
-	arrow.appendChild(thirdRow);
-	  // Fourth row
-	var fourthRow = document.createElement('div');
-	fourthRow.className = 'tipz_row';
-	fourthRow.style.width = '7px';
-	fourthRow.style.backgroundColor = this.backgroundColor;
-	arrow.appendChild(fourthRow);
-	  // Fifth row
-	var fifthRow = document.createElement('div');
-	fifthRow.className = 'tipz_row';
-	fifthRow.style.width = '9px';
-	fifthRow.style.backgroundColor = this.backgroundColor;
-	arrow.appendChild(fifthRow);
+  // Arrow printing
+  var arrow = document.createElement('div');
+  arrow.className = 'tipz_arrow';
+    // First row 
+  var firstRow = document.createElement('div');
+  firstRow.className = 'tipz_row';
+  firstRow.style.width = '1px';
+  firstRow.style.backgroundColor = this.backgroundColor;
+  arrow.appendChild(firstRow);
+	// Second row
+  var secondRow = document.createElement('div');
+  secondRow.className = 'tipz_row';
+  secondRow.style.width = '3px';
+  secondRow.style.backgroundColor = this.backgroundColor;
+  arrow.appendChild(secondRow);
+    // Third row
+  var thirdRow = document.createElement('div');
+  thirdRow.className = 'tipz_row';
+  thirdRow.style.width = '5px';
+  thirdRow.style.backgroundColor = this.backgroundColor;
+  arrow.appendChild(thirdRow);
+    // Fourth row
+  var fourthRow = document.createElement('div');
+  fourthRow.className = 'tipz_row';
+  fourthRow.style.width = '7px';
+  fourthRow.style.backgroundColor = this.backgroundColor;
+  arrow.appendChild(fourthRow);
+    // Fifth row
+  var fifthRow = document.createElement('div');
+  fifthRow.className = 'tipz_row';
+  fifthRow.style.width = '9px';
+  fifthRow.style.backgroundColor = this.backgroundColor;
+  arrow.appendChild(fifthRow);
 	
-	return arrow;
+  return arrow;
 }
 
 /** 
