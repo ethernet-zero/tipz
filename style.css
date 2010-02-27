@@ -1,0 +1,34 @@
+/* 
+  Tipz associated stylesheet 
+
+  Author: Juanma Cabello
+  Last modification date: 25/02/2010
+  Version: 0.2
+  
+  All the general css rules will be here. 
+  Specifics rules (like width of the rows which forms 
+  the arrow or like the color and background color of the content) 
+  are in the .js file itself.
+*/
+
+.canvas {
+  margin:       2px;
+  position:     absolute;
+  font-family:  helvetica;
+  font-size:    10px;
+  font-weight:  bold;
+}
+
+.arrow {
+  text-align:   center;
+}
+
+.row {
+  height:       1px;
+  margin:       0 auto 0 auto;
+}
+
+.content {
+  padding:       5px;
+  border-radius: 2px; 
+}
