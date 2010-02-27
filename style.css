@@ -3,18 +3,18 @@
 
   Author: Juanma Cabello
   Last modification date: 25/02/2010
-  Version: 0.2
+  Version: 0.2.1
   
   All the general css rules will be here. 
   Specifics rules (like width of the rows which forms 
   the arrow or like the color and background color of the content) 
   are in the .js file itself.
   
-  THIS STYLESHEET HAVE CSS3 RULES!
+  THIS STYLESHEET HAS CSS3 RULES!
   
 */
 
-.canvas {
+.tipz_canvas {
   margin:       2px;
   position:     absolute;
   font-family:  helvetica;
@@ -22,16 +22,16 @@
   font-weight:  bold;
 }
 
-.arrow {
+.tipz_arrow {
   text-align:   center;
 }
 
-.row {
+.tipz_row {
   height:       1px;
   margin:       0 auto 0 auto;
 }
 
-.content {
+.tipz_content {
   padding:       5px;
   border-radius: 2px; 
 }
