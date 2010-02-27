@@ -45,10 +45,20 @@ function Tipz(params) {
   @return      true
 */
 Tipz.prototype.show = function(DOMObject, tip) {
+  // Get the position and the dimsion of the DOM object
+  var domHeight  = DOMObject.offsetHeight;
+  var domWidth   = DOMObject.offsetWidth;
+  var domTopPos  = DOMObject.offsetTop;
+  var domLeftPos = DOMObject.offsetLeft;
+  
   // Canvas where the tooltip is going to be printed
   var canvas = document.createElement('div');
   canvas.id = this.id;
   canvas.className = 'tipz_canvas';
+  
+  // Set the postition of the canvas
+  canvas.style.left = domLeftPos + (domWidth/2) + 'px';
+  canvas.style.top = domTopPos + domHeight + 'px';
   
   // Set opacity of the canvas 
   if (!this.isSolid) {
@@ -81,8 +91,15 @@ Tipz.prototype.show = function(DOMObject, tip) {
   // Increase the instances counter
   this.instances++;
   
+  //
+  canvas.style.visibility = 'hidden';
+  
   // Append the canvas to the document
   document.body.appendChild(canvas);
+  
+  //
+  canvas.style.left = canvas.offsetLeft - (canvas.offsetWidth/2) + 'px';
+  canvas.style.visibility = '';
   
   return true;
 }
