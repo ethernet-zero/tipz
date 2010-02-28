@@ -1,13 +1,21 @@
-*THIS IS WORK IN PROGRESS, SO USE IT AT YOUR OWN RISK*
+= Tipz
 
-This is a simply JavaScript library that allows you to create tooltips for a DOM object.
+Tipz is a simple, lightweight Javascript library which allows you to show a sweet tooltip of every DOM object you want.
 
-To start using it you only need to include the .js file and it associated style sheet.
+= Instalation & set-up
 
-Once you do that, create an instance of the class and make calls to the "show" method on the mouseover event and "hide" on the mouseout event of the DOM object.
+* Copy the .js file and the .css file in your project wherever you want.
+* Import the script in the webpage.
+* Import the css associated to the library.
 
-Right now Tipz just is shown on the screen, in future changes I will positioning it on the right place of the webpage according to the position of the DOM object associated.
+= To do
 
-Thanks for your interest. 
+* Add the posibility of adding shadow when the tooltip is solid.
 
-:)
+= License
+
+This app is MIT licensed. Dowhatever you want with the library but you must know that there's no warranty of any kind.
+
+= Thanks!
+
+I want to thank my friend, co-worker and socio Fabio Basile(http://github.com/Toxinide) for all the great times we spend chating about strange things like programming, Apple, projects in common or whatever. You rocks, bud! :D
