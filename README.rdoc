@@ -1,0 +1,21 @@
+= Tipz
+
+Tipz is a simple, lightweight Javascript library which allows you to show a sweet tooltip of every DOM object you want.
+
+= Instalation & set-up
+
+* Copy the .js file and the .css file in your project wherever you want.
+* Import the script in the webpage.
+* Import the css associated to the library.
+
+= To do
+
+* Add the posibility of adding shadow when the tooltip is solid.
+
+= License
+
+This app is MIT licensed. Dowhatever you want with the library but you must know that there's no warranty of any kind.
+
+= Thanks!
+
+I want to thank my friend, co-worker and socio Fabio Basile(http://github.com/Toxinide) for all the great times we spend chating about strange things like programming, Apple, projects in common or whatever. You rocks, bud! :D
