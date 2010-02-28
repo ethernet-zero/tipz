@@ -45,6 +45,10 @@ function Tipz(params) {
   @return      true
 */
 Tipz.prototype.show = function(DOMObject, tip) {
+  // Removes previous tooltip, just in case
+  if (document.getElementById(this.id)) {
+    document.body.removeChild(document.getElementById(this.id));
+  }
   // Get the position and the dimsion of the DOM object
   var domHeight  = DOMObject.offsetHeight;
   var domWidth   = DOMObject.offsetWidth;
@@ -91,15 +95,18 @@ Tipz.prototype.show = function(DOMObject, tip) {
   // Increase the instances counter
   this.instances++;
   
-  //
+  // Set the canvas hidden in order to get the position parameters
   canvas.style.visibility = 'hidden';
   
   // Append the canvas to the document
   document.body.appendChild(canvas);
   
-  //
+  // Set the position and the visibility
   canvas.style.left = canvas.offsetLeft - (canvas.offsetWidth/2) + 'px';
   canvas.style.visibility = '';
+
+  // Fade the tip in
+  this.fade(100);
   
   return true;
 }
@@ -152,6 +159,76 @@ Tipz.prototype.makeArrow = function() {
   return arrow;
 }
 
+/**
+  @name        fade
+  @description Make the transition effect
+  
+  @return      true
+*/
+Tipz.prototype.fade = function(startOpacity, endOpacity, time) {
+  // Get the DOM object which the transtition is for
+  var DOMObject = document.getElementById(this.id);
+  
+	// The method is being called with only one argument
+	if (typeof endOpacity == 'undefined')
+	{
+		endOpacity = startOpacity;
+		startOpacity = 0;
+	}
+	
+	// Set if the DOM object has to be removed at the ending of the fade
+	if (startOpacity > endOpacity) {
+	  var remove = true;
+	} else {
+	  var remove = false;
+	}
+	
+	// Optimize time is 1
+	time = typeof time == 'undefined' ? 1 : time;
+
+	DOMObject.style.opacity = startOpacity;
+	
+	var fade = function()
+	{
+		if (startOpacity < endOpacity) 
+		{
+			startOpacity += 5;
+			
+			// Standard
+			DOMObject.style.opacity    = startOpacity/100;
+			// IE
+			//DOMObject.style.filter     = "alpha(opacity=" + startOpacity + ")";
+			// Mozilla
+			DOMObject.style.MozOpacity = startOpacity+"%";
+		} 
+		else if (startOpacity >= endOpacity)
+		{
+			startOpacity -= 5;
+			// Standard
+			DOMObject.style.opacity    = startOpacity/100;
+			// IE
+			//DOMObject.style.filter     = "alpha(opacity=" + startOpacity + ")";
+			// Mozilla
+			DOMObject.style.MozOpacity = startOpacity+"%";
+		}
+		
+		// If the transition is ended 
+		if (startOpacity == endOpacity)
+		{
+			clearInterval(interval);
+			// Only removes the DOM object if the transition is fadeOut
+			if (remove) {
+			  // Workaround for a bug
+			  try {
+  			  document.body.removeChild(DOMObject);
+	      } catch (e) {}
+	    }
+		}
+	}
+	
+	var interval = setInterval(fade, time);
+}
+
 /** 
   @name        hide 
   @description Simply, delete the tooltip on screen
@@ -159,8 +236,8 @@ Tipz.prototype.makeArrow = function() {
   @return      true
 */
 Tipz.prototype.hide = function() {
-  // Remove the tooltip from the document
-  document.body.removeChild(document.getElementById(this.id));
+  // Fade the tip out
+  this.fade(100, 0);
   
   // Decrease the instances number
   this.instances--;
