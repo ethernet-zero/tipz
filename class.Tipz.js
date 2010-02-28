@@ -2,7 +2,7 @@
   Name: Tipz
   Author: Juanma Cabello
   Last modification date: 25/02/2010
-  Version: 0.2.1
+  Version: 0.5
   
   Show a fancy tooltip from a DOMObject passed as parameter.
 */
@@ -18,12 +18,14 @@ Tipz.prototype.width            = null;
 Tipz.prototype.instances        = 0;
 Tipz.prototype.hasShadow        = false;
 Tipz.prototype.isSolid          = false;
+Tipz.prototype.position         = 'bottom';
 
 // Constructor section
 function Tipz(params) {
   this.id        = params.id ? params.id : 'tipz';
   this.hasShadow = params.hasShadow ? params.hasShadow : false;
   this.isSolid   = params.isSolid ? params.isSolid : false;
+  this.position  = params.position ? params.position : 'bottom';
 }
 
 // Methods section
@@ -60,20 +62,22 @@ Tipz.prototype.show = function(DOMObject, tip) {
   canvas.id = this.id;
   canvas.className = 'tipz_canvas';
   
-  // Set the postition of the canvas
-  canvas.style.left = domLeftPos + (domWidth/2) + 'px';
-  canvas.style.top = domTopPos + domHeight + 'px';
-  
   // Set opacity of the canvas 
   if (!this.isSolid) {
     canvas.style.opacity = this.opacity;
   }
   
-  // Create the arrow
-  var arrow = this.makeArrow();
-  
-  // Appending the arrow to the canvas
-  canvas.appendChild(arrow);  
+  if (this.position == 'bottom') {
+    // Set the postition of the canvas
+    canvas.style.left = domLeftPos + (domWidth/2) - 3 + 'px';
+    canvas.style.top = domTopPos + domHeight + 'px';
+    
+    // Create the arrow
+    var arrow = this.makeTopArrow();
+    
+    // Appending the arrow to the canvas
+    canvas.appendChild(arrow);  
+  }
   
   // The tip container
   var content = document.createElement('div');
@@ -88,6 +92,18 @@ Tipz.prototype.show = function(DOMObject, tip) {
   
   // Append the container to the canvas
   canvas.appendChild(content);
+  
+  if (this.position == 'top') {
+    // Set the postition of the canvas
+    canvas.style.left = domLeftPos + (domWidth/2) - 3 + 'px';
+    canvas.style.top = domTopPos - domHeight - 4 + 'px';
+    
+    // Create the arrow
+    var arrow = this.makeBottomArrow();
+    
+    // Appending the arrow to the canvas
+    canvas.appendChild(arrow);  
+  }
   
   // Adding the tip to the array of tips
   this.tipz.push(canvas);
@@ -112,8 +128,8 @@ Tipz.prototype.show = function(DOMObject, tip) {
 }
 
 /**
-	@name        makeArrow 
-	@description Create the arrow div.
+	@name        makeTopArrow 
+	@description Create the arrow div when the tooltip is set to apear on the top.
 				 
 				 The arrow is formed with 5 1 pixel height divs in stack. 
 				 Each one has 2 more pixels than the previous starting from 1 pixel, so
@@ -121,7 +137,7 @@ Tipz.prototype.show = function(DOMObject, tip) {
 				  
 	@return      arrow	The arrow div to be appended to the canvas.
 */
-Tipz.prototype.makeArrow = function() {
+Tipz.prototype.makeTopArrow = function() {
   // Arrow printing
   var arrow = document.createElement('div');
   arrow.className = 'tipz_arrow';
@@ -156,6 +172,54 @@ Tipz.prototype.makeArrow = function() {
   fifthRow.style.backgroundColor = this.backgroundColor;
   arrow.appendChild(fifthRow);
 	
+  return arrow;
+}
+
+/**
+	@name        makeBottomArrow 
+	@description Create the arrow div when the tooltip is set to apear on the bottom.
+				 
+				 The arrow is formed with 5 1 pixel height divs in stack. 
+				 Each one has 2 more pixels than the previous starting from 1 pixel, so
+				 they form a little pyramid pointing to the top.
+				  
+	@return      arrow	The arrow div to be appended to the canvas.
+*/
+Tipz.prototype.makeBottomArrow = function() {
+  // Arrow printing
+  var arrow = document.createElement('div');
+  arrow.className = 'tipz_arrow';
+    // Fifth row
+  var fifthRow = document.createElement('div');
+  fifthRow.className = 'tipz_row';
+  fifthRow.style.width = '9px';
+  fifthRow.style.backgroundColor = this.backgroundColor;
+  arrow.appendChild(fifthRow);
+    // Fourth row
+  var fourthRow = document.createElement('div');
+  fourthRow.className = 'tipz_row';
+  fourthRow.style.width = '7px';
+  fourthRow.style.backgroundColor = this.backgroundColor;
+  arrow.appendChild(fourthRow);
+    // Third row
+  var thirdRow = document.createElement('div');
+  thirdRow.className = 'tipz_row';
+  thirdRow.style.width = '5px';
+  thirdRow.style.backgroundColor = this.backgroundColor;
+  arrow.appendChild(thirdRow);
+    // Second row
+  var secondRow = document.createElement('div');
+  secondRow.className = 'tipz_row';
+  secondRow.style.width = '3px';
+  secondRow.style.backgroundColor = this.backgroundColor;
+  arrow.appendChild(secondRow);
+    // First row 
+  var firstRow = document.createElement('div');
+  firstRow.className = 'tipz_row';
+  firstRow.style.width = '1px';
+  firstRow.style.backgroundColor = this.backgroundColor;
+  arrow.appendChild(firstRow);
+  	
   return arrow;
 }
 
