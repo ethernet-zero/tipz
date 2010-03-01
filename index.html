@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+  <head>
+    <title>Tooltipz test workshop</title>
+    <style type="text/css">
+       .text {
+         background: #CCCCCC;
+         color: #333333;
+         border-radius: 2px;
+         padding: 5px;
+         position: absolute;
+         top: 200px;
+         left: 400px;
+         cursor: default;
+       }
+    </style>
+    
+    <link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="class.Tipz.js"></script>
+    
+    <script type="text/javascript">
+      var tipz = new Tipz({
+        isSolid : false
+      });
+    </script>
+  </head>
+  <body>
+    <div class="text" onmouseover="tipz.show(this, 'This is going to rock!');" onmouseout="tipz.hide();">
+      Put the mouse over.
+    </div>
+  </body>
+</html>
