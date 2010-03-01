@@ -297,11 +297,8 @@ Tipz.prototype.fade = function(startOpacity, endOpacity, time) {
 		{
 			clearInterval(interval);
 			// Only removes the DOM object if the transition is fadeOut
-			if (remove) {
-			  // Workaround for a bug
-			  try {
-  			  document.body.removeChild(DOMObject);
-	      } catch (e) {}
+			if (remove && document.getElementById(this.id)) {
+			  document.body.removeChild(DOMObject);
 	    }
 		}
 	}
