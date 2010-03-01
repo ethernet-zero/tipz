@@ -50,20 +50,20 @@
   height:             1px;
   margin:             0 auto 0 auto;
   -webkit-box-shadow: 0px 3px 5px #888;
-  -moz-border-radius: 0px 3px 5px #888;
+  -moz-box-shadow:    0px 3px 5px #888;
 }
 
 .tipz_column_shadow {
   width:              1px;
   float:              left;
   -webkit-box-shadow: 0px 3px 5px #888;
-  -moz-border-radius: 0px 3px 5px #888;
+  -moz-box-shadow:    0px 3px 5px #888;
 }
 
 .tipz_content_shadow {
   padding:            5px;
   border-radius:      5px; 
   -webkit-box-shadow: 0px 3px 5px #888;
-  -moz-border-radius: 0px 3px 5px #888;
+  -moz-box-shadow:    0px 3px 5px #888;
   z-index:            99999;
 }
