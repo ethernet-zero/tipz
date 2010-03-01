@@ -2,7 +2,7 @@
   Name: Tipz
   Author: Juanma Cabello
   Last modification date: 29/02/2010
-  Version: 0.6
+  Version: 0.7
   
   Show a fancy tooltip from a DOMObject passed as parameter.
    
@@ -99,31 +99,51 @@ Tipz.prototype.makeBottomArrow = function() {
   arrow.className = 'tipz_arrow';
     // Fifth row
   var fifthRow = document.createElement('div');
-  fifthRow.className = 'tipz_row';
+  if (this.isSolid && this.hasShadow) {
+    fifthRow.className = 'tipz_row_shadow';
+  } else {
+    fifthRow.className = 'tipz_row';
+  }
   fifthRow.style.width = '9px';
   fifthRow.style.backgroundColor = this.backgroundColor;
   arrow.appendChild(fifthRow);
     // Fourth row
   var fourthRow = document.createElement('div');
-  fourthRow.className = 'tipz_row';
+  if (this.isSolid && this.hasShadow) {
+    fourthRow.className = 'tipz_row_shadow';
+  } else {
+    fourthRow.className = 'tipz_row';
+  }
   fourthRow.style.width = '7px';
   fourthRow.style.backgroundColor = this.backgroundColor;
   arrow.appendChild(fourthRow);
     // Third row
   var thirdRow = document.createElement('div');
-  thirdRow.className = 'tipz_row';
+  if (this.isSolid && this.hasShadow) {
+    thirdRow.className = 'tipz_row_shadow';
+  } else {
+    thirdRow.className = 'tipz_row';
+  }
   thirdRow.style.width = '5px';
   thirdRow.style.backgroundColor = this.backgroundColor;
   arrow.appendChild(thirdRow);
     // Second row
   var secondRow = document.createElement('div');
-  secondRow.className = 'tipz_row';
+  if (this.isSolid && this.hasShadow) {
+    secondRow.className = 'tipz_row_shadow';
+  } else {
+    secondRow.className = 'tipz_row';
+  }
   secondRow.style.width = '3px';
   secondRow.style.backgroundColor = this.backgroundColor;
   arrow.appendChild(secondRow);
     // First row 
   var firstRow = document.createElement('div');
-  firstRow.className = 'tipz_row';
+  if (this.isSolid && this.hasShadow) {
+    firstRow.className = 'tipz_row_shadow';
+  } else {
+    firstRow.className = 'tipz_row';
+  }
   firstRow.style.width = '1px';
   firstRow.style.backgroundColor = this.backgroundColor;
   arrow.appendChild(firstRow);
@@ -147,34 +167,54 @@ Tipz.prototype.makeRightArrow = function() {
   arrow.className = 'tipz_arrow';
     // Fifth row
   var fifthRow = document.createElement('div');
-  fifthRow.className = 'tipz_column';
+  if (this.isSolid && this.hasShadow) {
+    fifthRow.className = 'tipz_column_shadow';
+  } else {
+    fifthRow.className = 'tipz_column';
+  }
   fifthRow.style.height = '9px';
   fifthRow.style.backgroundColor = this.backgroundColor;
   arrow.appendChild(fifthRow);
     // Fourth row
   var fourthRow = document.createElement('div');
-  fourthRow.className = 'tipz_column';
+  if (this.isSolid && this.hasShadow) {
+    fourthRow.className = 'tipz_column_shadow';
+  } else {
+    fourthRow.className = 'tipz_column';
+  }
   fourthRow.style.marginTop = '1px';
   fourthRow.style.height = '7px';
   fourthRow.style.backgroundColor = this.backgroundColor;
   arrow.appendChild(fourthRow);
     // Third row
   var thirdRow = document.createElement('div');
-  thirdRow.className = 'tipz_column';
+  if (this.isSolid && this.hasShadow) {
+    thirdRow.className = 'tipz_column_shadow';
+  } else {
+    thirdRow.className = 'tipz_column';
+  }
   thirdRow.style.marginTop = '2px';
   thirdRow.style.height = '5px';
   thirdRow.style.backgroundColor = this.backgroundColor;
   arrow.appendChild(thirdRow);
     // Second row
   var secondRow = document.createElement('div');
-  secondRow.className = 'tipz_column';
+  if (this.isSolid && this.hasShadow) {
+    secondRow.className = 'tipz_column_shadow';
+  } else {
+    secondRow.className = 'tipz_column';
+  }
   secondRow.style.marginTop = '3px';
   secondRow.style.height = '3px';
   secondRow.style.backgroundColor = this.backgroundColor;
   arrow.appendChild(secondRow);
     // First row 
   var firstRow = document.createElement('div');
-  firstRow.className = 'tipz_column';
+  if (this.isSolid && this.hasShadow) {
+    firstRow.className = 'tipz_column_shadow';
+  } else {
+    firstRow.className = 'tipz_column';
+  }
   firstRow.style.marginTop = '4px';
   firstRow.style.height = '1px';
   firstRow.style.backgroundColor = this.backgroundColor;
@@ -199,35 +239,55 @@ Tipz.prototype.makeLeftArrow = function() {
   arrow.className = 'tipz_arrow';
     // First row 
   var firstRow = document.createElement('div');
-  firstRow.className = 'tipz_column';
+  if (this.isSolid && this.hasShadow) {
+    firstRow.className = 'tipz_column_shadow';
+  } else {
+    firstRow.className = 'tipz_column';
+  }
   firstRow.style.marginTop = '4px';
   firstRow.style.height = '1px';
   firstRow.style.backgroundColor = this.backgroundColor;
   arrow.appendChild(firstRow);
     // Second row
   var secondRow = document.createElement('div');
-  secondRow.className = 'tipz_column';
+  if (this.isSolid && this.hasShadow) {
+    secondRow.className = 'tipz_column_shadow';
+  } else {
+    secondRow.className = 'tipz_column';
+  }
   secondRow.style.marginTop = '3px';
   secondRow.style.height = '3px';
   secondRow.style.backgroundColor = this.backgroundColor;
   arrow.appendChild(secondRow);
     // Third row
   var thirdRow = document.createElement('div');
-  thirdRow.className = 'tipz_column';
+  if (this.isSolid && this.hasShadow) {
+    thirdRow.className = 'tipz_column_shadow';
+  } else {
+    thirdRow.className = 'tipz_column';
+  }
   thirdRow.style.marginTop = '2px';
   thirdRow.style.height = '5px';
   thirdRow.style.backgroundColor = this.backgroundColor;
   arrow.appendChild(thirdRow);
     // Fourth row
   var fourthRow = document.createElement('div');
-  fourthRow.className = 'tipz_column';
+  if (this.isSolid && this.hasShadow) {
+    fourthRow.className = 'tipz_column_shadow';
+  } else {
+    fourthRow.className = 'tipz_column';
+  }
   fourthRow.style.marginTop = '1px';
   fourthRow.style.height = '7px';
   fourthRow.style.backgroundColor = this.backgroundColor;
   arrow.appendChild(fourthRow);
     // Fifth row
   var fifthRow = document.createElement('div');
-  fifthRow.className = 'tipz_column';
+  if (this.isSolid && this.hasShadow) {
+    fifthRow.className = 'tipz_column_shadow';
+  } else {
+    fifthRow.className = 'tipz_column';
+  }
   fifthRow.style.height = '9px';
   fifthRow.style.backgroundColor = this.backgroundColor;
   arrow.appendChild(fifthRow);
@@ -360,7 +420,11 @@ Tipz.prototype.show = function(DOMObject, tip) {
   
   // The tip container
   var content = document.createElement('div');
-  content.className = 'tipz_content';
+  if (this.isSolid && this.hasShadow) {
+    content.className = 'tipz_content_shadow';
+  } else {
+    content.className = 'tipz_content';
+  }
   content.style.backgroundColor = this.backgroundColor;
   content.style.color = this.color;
   
