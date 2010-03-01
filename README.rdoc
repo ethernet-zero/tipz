@@ -18,4 +18,4 @@ This app is MIT licensed. Dowhatever you want with the library but you must know
 
 = Thanks!
 
-I want to thank my friend, co-worker and socio Fabio Basile(http://github.com/Toxinide) for all the great times we spend chating about strange things like programming, Apple, projects in common or whatever. You rocks, bud! :D
+I want to thank my friend, co-worker and socio Fabio Basile(http://github.com/Toxinide) for all the great times we spend chating about strange things like programming, Apple, projects in common or whatever. You rock, bud! :D
