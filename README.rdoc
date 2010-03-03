@@ -10,7 +10,7 @@ Tipz is a simple, lightweight Javascript library which allows you to show a swee
 
 = License
 
-This lobrary is MIT licensed. Do whatever you want with the library but you must know that there's no warranty of any kind.
+This library is MIT licensed. Do whatever you want with the library but you must know that there's no warranty of any kind.
 
 = Thanks!
 
