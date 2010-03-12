@@ -7,6 +7,7 @@
          background: #CCCCCC;
          color: #333333;
          border-radius: 2px;
+         -moz-border-radius: 0.2em;
          padding: 5px;
          position: absolute;
          top: 200px;
@@ -19,19 +20,20 @@
     <script type="text/javascript" src="class.Tipz.js"></script>
     
     <script type="text/javascript">
-      var tipz = new Tipz({
+      Tipz.initialize({
         id              : 'custom_tipz_id',
         isSolid         : true,
         hasShadow       : true,
-        position        : 'bottom',
+        position        : 'right',
         backgroundColor : 'black',
-        color           : 'white'
+        color           : 'white',
+        delay			: 100
       });
     </script>
   </head>
   <body>
-    <div class="text" onmouseover="tipz.show(this, 'This is going to rock!');" onmouseout="tipz.hide();">
-      Put the mouse over.
+    <div class="text" onmouseover="Tipz.show(this, 'This is going to rock! <br/> Testing carrier return...');">
+    	Testing text!
     </div>
   </body>
 </html>

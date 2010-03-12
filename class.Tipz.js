@@ -1,37 +1,54 @@
 /**
   Name: Tipz
   Author: Juanma Cabello
-  Last modification date: 29/02/2010
-  Version: 0.7
+  Last modification date: 12/03/2010
+  Version: 1.0
   
   Show a fancy tooltip from a DOMObject passed as parameter.
    
-  THIS LIBRARY IS MIT LICENSED
+  Tipz LIBRARY IS MIT LICENSED
 */
 
 // Members section
-Tipz.prototype.id               = null;
-Tipz.prototype.tipz             = new Array();
-Tipz.prototype.backgroundColor  = '#000000';
-Tipz.prototype.color            = '#FFFFFF';
-Tipz.prototype.opacity          = 75;
-Tipz.prototype.height           = null;
-Tipz.prototype.width            = null;
-Tipz.prototype.instances        = 0;
-Tipz.prototype.hasShadow        = false;
-Tipz.prototype.isSolid          = false;
-Tipz.prototype.position         = 'bottom';
+var Tipz = new Object();
+
+Tipz.id               = null;
+Tipz.tipz             = new Array();
+Tipz.backgroundColor  = '#000000';
+Tipz.color            = '#FFFFFF';
+Tipz.opacity          = 75;
+Tipz.height           = null;
+Tipz.width            = null;
+Tipz.instances        = 0;
+Tipz.hasShadow        = false;
+Tipz.isSolid          = false;
+Tipz.position         = 'bottom';
+Tipz.delay			  = 0;
 
 // Constructor section
-function Tipz(params) {
-  this.id              = params.id ? params.id : 'tipz';
-  this.isSolid         = params.isSolid ? params.isSolid : false;
-  if (this.isSolid) {
-    this.hasShadow     = params.hasShadow ? params.hasShadow : false;
+Tipz.initialize		   = function(params) {
+  Tipz.id              = params.id ? params.id : 'tipz';
+  Tipz.isSolid         = params.isSolid ? params.isSolid : false;
+  
+  if (Tipz.isSolid) {
+    Tipz.hasShadow     = params.hasShadow ? params.hasShadow : false;
   }
-  this.position        = params.position ? params.position : 'bottom';
-  this.backgroundColor = params.backgroundColor ? params.backgroundColor : '#000000';
-  this.color           = params.color ? params.color : '#FFFFFF';
+  
+  // Left and right positioning are disabled for IE
+  if (document.all) {
+  	if (params.position == 'left' ||
+  		params.position == 'right') {
+  			Tipz.position = 'bottom';	
+  	} else {
+  		Tipz.position = params.position;
+  	}
+  } else {
+	  Tipz.position = params.position ? params.position : 'bottom';
+  }
+  
+  Tipz.backgroundColor = params.backgroundColor ? params.backgroundColor : '#000000';
+  Tipz.color           = params.color ? params.color : '#FFFFFF';
+  Tipz.delay		   = params.delay ? params.delay : 0;
 }
 
 // Helpers section
@@ -45,7 +62,7 @@ function Tipz(params) {
 				  
 	@return      arrow	The arrow div to be appended to the canvas.
 */
-Tipz.prototype.makeTopArrow = function() {
+Tipz.makeTopArrow = function() {
   // Arrow printing
   var arrow = document.createElement('div');
   arrow.className = 'tipz_arrow';
@@ -53,31 +70,31 @@ Tipz.prototype.makeTopArrow = function() {
   var firstRow = document.createElement('div');
   firstRow.className = 'tipz_row';
   firstRow.style.width = '1px';
-  firstRow.style.backgroundColor = this.backgroundColor;
+  firstRow.style.backgroundColor = Tipz.backgroundColor;
   arrow.appendChild(firstRow);
 	// Second row
   var secondRow = document.createElement('div');
   secondRow.className = 'tipz_row';
   secondRow.style.width = '3px';
-  secondRow.style.backgroundColor = this.backgroundColor;
+  secondRow.style.backgroundColor = Tipz.backgroundColor;
   arrow.appendChild(secondRow);
     // Third row
   var thirdRow = document.createElement('div');
   thirdRow.className = 'tipz_row';
   thirdRow.style.width = '5px';
-  thirdRow.style.backgroundColor = this.backgroundColor;
+  thirdRow.style.backgroundColor = Tipz.backgroundColor;
   arrow.appendChild(thirdRow);
     // Fourth row
   var fourthRow = document.createElement('div');
   fourthRow.className = 'tipz_row';
   fourthRow.style.width = '7px';
-  fourthRow.style.backgroundColor = this.backgroundColor;
+  fourthRow.style.backgroundColor = Tipz.backgroundColor;
   arrow.appendChild(fourthRow);
     // Fifth row
   var fifthRow = document.createElement('div');
   fifthRow.className = 'tipz_row';
   fifthRow.style.width = '9px';
-  fifthRow.style.backgroundColor = this.backgroundColor;
+  fifthRow.style.backgroundColor = Tipz.backgroundColor;
   arrow.appendChild(fifthRow);
 	
   return arrow;
@@ -93,59 +110,59 @@ Tipz.prototype.makeTopArrow = function() {
 				  
 	@return      arrow	The arrow div to be appended to the canvas.
 */
-Tipz.prototype.makeBottomArrow = function() {
+Tipz.makeBottomArrow = function() {
   // Arrow printing
   var arrow = document.createElement('div');
   arrow.className = 'tipz_arrow';
     // Fifth row
   var fifthRow = document.createElement('div');
-  if (this.isSolid && this.hasShadow) {
+  if (Tipz.isSolid && Tipz.hasShadow) {
     fifthRow.className = 'tipz_row_shadow';
   } else {
     fifthRow.className = 'tipz_row';
   }
   fifthRow.style.width = '9px';
-  fifthRow.style.backgroundColor = this.backgroundColor;
+  fifthRow.style.backgroundColor = Tipz.backgroundColor;
   arrow.appendChild(fifthRow);
     // Fourth row
   var fourthRow = document.createElement('div');
-  if (this.isSolid && this.hasShadow) {
+  if (Tipz.isSolid && Tipz.hasShadow) {
     fourthRow.className = 'tipz_row_shadow';
   } else {
     fourthRow.className = 'tipz_row';
   }
   fourthRow.style.width = '7px';
-  fourthRow.style.backgroundColor = this.backgroundColor;
+  fourthRow.style.backgroundColor = Tipz.backgroundColor;
   arrow.appendChild(fourthRow);
     // Third row
   var thirdRow = document.createElement('div');
-  if (this.isSolid && this.hasShadow) {
+  if (Tipz.isSolid && Tipz.hasShadow) {
     thirdRow.className = 'tipz_row_shadow';
   } else {
     thirdRow.className = 'tipz_row';
   }
   thirdRow.style.width = '5px';
-  thirdRow.style.backgroundColor = this.backgroundColor;
+  thirdRow.style.backgroundColor = Tipz.backgroundColor;
   arrow.appendChild(thirdRow);
     // Second row
   var secondRow = document.createElement('div');
-  if (this.isSolid && this.hasShadow) {
+  if (Tipz.isSolid && Tipz.hasShadow) {
     secondRow.className = 'tipz_row_shadow';
   } else {
     secondRow.className = 'tipz_row';
   }
   secondRow.style.width = '3px';
-  secondRow.style.backgroundColor = this.backgroundColor;
+  secondRow.style.backgroundColor = Tipz.backgroundColor;
   arrow.appendChild(secondRow);
     // First row 
   var firstRow = document.createElement('div');
-  if (this.isSolid && this.hasShadow) {
+  if (Tipz.isSolid && Tipz.hasShadow) {
     firstRow.className = 'tipz_row_shadow';
   } else {
     firstRow.className = 'tipz_row';
   }
   firstRow.style.width = '1px';
-  firstRow.style.backgroundColor = this.backgroundColor;
+  firstRow.style.backgroundColor = Tipz.backgroundColor;
   arrow.appendChild(firstRow);
   	
   return arrow;
@@ -161,63 +178,63 @@ Tipz.prototype.makeBottomArrow = function() {
 				  
 	@return      arrow	The arrow div to be appended to the canvas.
 */
-Tipz.prototype.makeRightArrow = function() {
+Tipz.makeRightArrow = function() {
   // Arrow printing
   var arrow = document.createElement('div');
   arrow.className = 'tipz_arrow';
     // Fifth row
   var fifthRow = document.createElement('div');
-  if (this.isSolid && this.hasShadow) {
+  if (Tipz.isSolid && Tipz.hasShadow) {
     fifthRow.className = 'tipz_column_shadow';
   } else {
     fifthRow.className = 'tipz_column';
   }
   fifthRow.style.height = '9px';
-  fifthRow.style.backgroundColor = this.backgroundColor;
+  fifthRow.style.backgroundColor = Tipz.backgroundColor;
   arrow.appendChild(fifthRow);
     // Fourth row
   var fourthRow = document.createElement('div');
-  if (this.isSolid && this.hasShadow) {
+  if (Tipz.isSolid && Tipz.hasShadow) {
     fourthRow.className = 'tipz_column_shadow';
   } else {
     fourthRow.className = 'tipz_column';
   }
   fourthRow.style.marginTop = '1px';
   fourthRow.style.height = '7px';
-  fourthRow.style.backgroundColor = this.backgroundColor;
+  fourthRow.style.backgroundColor = Tipz.backgroundColor;
   arrow.appendChild(fourthRow);
     // Third row
   var thirdRow = document.createElement('div');
-  if (this.isSolid && this.hasShadow) {
+  if (Tipz.isSolid && Tipz.hasShadow) {
     thirdRow.className = 'tipz_column_shadow';
   } else {
     thirdRow.className = 'tipz_column';
   }
   thirdRow.style.marginTop = '2px';
   thirdRow.style.height = '5px';
-  thirdRow.style.backgroundColor = this.backgroundColor;
+  thirdRow.style.backgroundColor = Tipz.backgroundColor;
   arrow.appendChild(thirdRow);
     // Second row
   var secondRow = document.createElement('div');
-  if (this.isSolid && this.hasShadow) {
+  if (Tipz.isSolid && Tipz.hasShadow) {
     secondRow.className = 'tipz_column_shadow';
   } else {
     secondRow.className = 'tipz_column';
   }
   secondRow.style.marginTop = '3px';
   secondRow.style.height = '3px';
-  secondRow.style.backgroundColor = this.backgroundColor;
+  secondRow.style.backgroundColor = Tipz.backgroundColor;
   arrow.appendChild(secondRow);
     // First row 
   var firstRow = document.createElement('div');
-  if (this.isSolid && this.hasShadow) {
+  if (Tipz.isSolid && Tipz.hasShadow) {
     firstRow.className = 'tipz_column_shadow';
   } else {
     firstRow.className = 'tipz_column';
   }
   firstRow.style.marginTop = '4px';
   firstRow.style.height = '1px';
-  firstRow.style.backgroundColor = this.backgroundColor;
+  firstRow.style.backgroundColor = Tipz.backgroundColor;
   arrow.appendChild(firstRow);
   	
   return arrow;
@@ -233,63 +250,63 @@ Tipz.prototype.makeRightArrow = function() {
 				  
 	@return      arrow	The arrow div to be appended to the canvas.
 */
-Tipz.prototype.makeLeftArrow = function() {
+Tipz.makeLeftArrow = function() {
   // Arrow printing
   var arrow = document.createElement('div');
   arrow.className = 'tipz_arrow';
     // First row 
   var firstRow = document.createElement('div');
-  if (this.isSolid && this.hasShadow) {
+  if (Tipz.isSolid && Tipz.hasShadow) {
     firstRow.className = 'tipz_column_shadow';
   } else {
     firstRow.className = 'tipz_column';
   }
   firstRow.style.marginTop = '4px';
   firstRow.style.height = '1px';
-  firstRow.style.backgroundColor = this.backgroundColor;
+  firstRow.style.backgroundColor = Tipz.backgroundColor;
   arrow.appendChild(firstRow);
     // Second row
   var secondRow = document.createElement('div');
-  if (this.isSolid && this.hasShadow) {
+  if (Tipz.isSolid && Tipz.hasShadow) {
     secondRow.className = 'tipz_column_shadow';
   } else {
     secondRow.className = 'tipz_column';
   }
   secondRow.style.marginTop = '3px';
   secondRow.style.height = '3px';
-  secondRow.style.backgroundColor = this.backgroundColor;
+  secondRow.style.backgroundColor = Tipz.backgroundColor;
   arrow.appendChild(secondRow);
     // Third row
   var thirdRow = document.createElement('div');
-  if (this.isSolid && this.hasShadow) {
+  if (Tipz.isSolid && Tipz.hasShadow) {
     thirdRow.className = 'tipz_column_shadow';
   } else {
     thirdRow.className = 'tipz_column';
   }
   thirdRow.style.marginTop = '2px';
   thirdRow.style.height = '5px';
-  thirdRow.style.backgroundColor = this.backgroundColor;
+  thirdRow.style.backgroundColor = Tipz.backgroundColor;
   arrow.appendChild(thirdRow);
     // Fourth row
   var fourthRow = document.createElement('div');
-  if (this.isSolid && this.hasShadow) {
+  if (Tipz.isSolid && Tipz.hasShadow) {
     fourthRow.className = 'tipz_column_shadow';
   } else {
     fourthRow.className = 'tipz_column';
   }
   fourthRow.style.marginTop = '1px';
   fourthRow.style.height = '7px';
-  fourthRow.style.backgroundColor = this.backgroundColor;
+  fourthRow.style.backgroundColor = Tipz.backgroundColor;
   arrow.appendChild(fourthRow);
     // Fifth row
   var fifthRow = document.createElement('div');
-  if (this.isSolid && this.hasShadow) {
+  if (Tipz.isSolid && Tipz.hasShadow) {
     fifthRow.className = 'tipz_column_shadow';
   } else {
     fifthRow.className = 'tipz_column';
   }
   fifthRow.style.height = '9px';
-  fifthRow.style.backgroundColor = this.backgroundColor;
+  fifthRow.style.backgroundColor = Tipz.backgroundColor;
   arrow.appendChild(fifthRow);
   	
   return arrow;
@@ -301,17 +318,16 @@ Tipz.prototype.makeLeftArrow = function() {
   
   @return      true
 */
-Tipz.prototype.fade = function(startOpacity, endOpacity, time) {
+Tipz.fade = function(startOpacity, endOpacity, time) {
   // Get the DOM object which the transtition is for
-  var DOMObject = document.getElementById(this.id);
+  var DOMObject = document.getElementById(Tipz.id);
   
 	// The method is being called with only one argument
-	if (typeof endOpacity == 'undefined')
-	{
-	  if (this.isSolid) {
+	if (typeof endOpacity == 'undefined') {
+	  if (Tipz.isSolid) {
   		endOpacity = startOpacity;
 		} else {
-		  endOpacity = this.opacity;
+		  endOpacity = Tipz.opacity;
 		}
 		startOpacity = 0;
 	}
@@ -328,38 +344,38 @@ Tipz.prototype.fade = function(startOpacity, endOpacity, time) {
 
 	DOMObject.style.opacity = startOpacity/100;
 	
-	var fade = function()
-	{
-		if (startOpacity < endOpacity) 
-		{
+	var fade = function() {
+		if (startOpacity < endOpacity) {
 			startOpacity += 5;
 			
 			// Standard
 			DOMObject.style.opacity    = startOpacity/100;
 			// IE
-			//DOMObject.style.filter     = "alpha(opacity=" + startOpacity + ")";
+			DOMObject.style.filter     = "alpha(opacity=" + startOpacity + ")";
 			// Mozilla
-			DOMObject.style.MozOpacity = startOpacity+"%";
+			DOMObject.style.MozOpacity = startOpacity + "%";
 		} 
-		else if (startOpacity >= endOpacity)
-		{
+		else if (startOpacity >= endOpacity) {
 			startOpacity -= 5;
 			// Standard
 			DOMObject.style.opacity    = startOpacity/100;
 			// IE
-			//DOMObject.style.filter     = "alpha(opacity=" + startOpacity + ")";
+			DOMObject.style.filter     = "alpha(opacity=" + startOpacity + ")";
 			// Mozilla
-			DOMObject.style.MozOpacity = startOpacity+"%";
+			DOMObject.style.MozOpacity = startOpacity + "%";
 		}
 		
 		// If the transition is ended 
-		if (startOpacity == endOpacity)
-		{
+		if (startOpacity == endOpacity) {
 			clearInterval(interval);
 			// Only removes the DOM object if the transition is fadeOut
-			if (remove && document.getElementById(this.id)) {
-			  document.body.removeChild(DOMObject);
-	    }
+			if (remove && 
+				document.getElementById(Tipz.id)) {
+					try {
+			  			document.body.removeChild(DOMObject);
+			  		} catch(e) { 
+			  		}
+	    	}
 		}
 	}
 	
@@ -381,14 +397,14 @@ Tipz.prototype.fade = function(startOpacity, endOpacity, time) {
   @params      DOMObject The DOM object which the tooltip is for.
   @params      tip       The text which is going to be shown in the tooltip.
   
-  @see		   Tipz.prototype.makeArrow()
+  @see		   Tipz.makeArrow()
   
   @return      true
 */
-Tipz.prototype.show = function(DOMObject, tip) {
+Tipz.show = function(DOMObject, tip) {
   // Removes previous tooltip, just in case
-  if (document.getElementById(this.id)) {
-    document.body.removeChild(document.getElementById(this.id));
+  if (document.getElementById(Tipz.id)) {
+    document.body.removeChild(document.getElementById(Tipz.id));
   }
   // Get the position and the dimsion of the DOM object
   var domHeight  = DOMObject.offsetHeight;
@@ -398,21 +414,21 @@ Tipz.prototype.show = function(DOMObject, tip) {
   
   // Canvas where the tooltip is going to be printed
   var canvas = document.createElement('div');
-  canvas.id = this.id;
+  canvas.id = Tipz.id;
   canvas.className = 'tipz_canvas';
   
   // Set opacity of the canvas 
-  if (!this.isSolid) {
-    canvas.style.opacity = this.opacity;
+  if (!Tipz.isSolid) {
+    canvas.style.opacity = Tipz.opacity;
   }
   
-  if (this.position == 'bottom') {
+  if (Tipz.position == 'bottom') {
     // Set the postition of the canvas
     canvas.style.left = domLeftPos + (domWidth/2) - 3 + 'px';
     canvas.style.top = domTopPos + domHeight + 'px';
     
     // Create the arrow
-    var arrow = this.makeTopArrow();
+    var arrow = Tipz.makeTopArrow();
     
     // Appending the arrow to the canvas
     canvas.appendChild(arrow);  
@@ -420,31 +436,29 @@ Tipz.prototype.show = function(DOMObject, tip) {
   
   // The tip container
   var content = document.createElement('div');
-  if (this.isSolid && this.hasShadow) {
+  if (Tipz.isSolid && Tipz.hasShadow) {
     content.className = 'tipz_content_shadow';
   } else {
     content.className = 'tipz_content';
   }
-  content.style.backgroundColor = this.backgroundColor;
-  content.style.color = this.color;
-  
-  // The tip itself
-  var text = document.createTextNode(tip);
+  content.style.backgroundColor = Tipz.backgroundColor;
+  content.style.color = Tipz.color;
   
   // Append the tip to the container
-  content.appendChild(text);
+  content.innerHTML = tip;
   
-  if (this.position == 'right') {
+  // Right and left positioning are disabled for IE
+  if (Tipz.position == 'right' && !document.all) {
     // Set the postition of the canvas   
-    canvas.style.left = domLeftPos + (domWidth) + 'px';
-    canvas.style.top = domTopPos + 'px';
+    canvas.style.left = domLeftPos + domWidth + 'px';
+    canvas.style.top = domTopPos - 5 + 'px';
     
     // Set the content style
     content.style.cssFloat = 'left';
     content.style.width = content.offsetWidth - 5 + 'px';
     
     // Create the arrow
-    var arrow = this.makeLeftArrow();
+    var arrow = Tipz.makeLeftArrow();
     arrow.style.cssFloat = 'left';
     
     // Appending the arrow to the canvas
@@ -454,13 +468,13 @@ Tipz.prototype.show = function(DOMObject, tip) {
   // Append the container to the canvas
   canvas.appendChild(content);
   
-  if (this.position == 'top') {
+  if (Tipz.position == 'top') {
     // Set the postition of the canvas
     canvas.style.left = domLeftPos + (domWidth/2) - 3 + 'px';
     canvas.style.top = domTopPos - domHeight - 4 + 'px';
     
     // Create the arrow
-    var arrow = this.makeBottomArrow();
+    var arrow = Tipz.makeBottomArrow();
     
     // Appending the arrow to the canvas
     canvas.appendChild(arrow);  
@@ -472,17 +486,18 @@ Tipz.prototype.show = function(DOMObject, tip) {
   // Append the canvas to the document
   document.body.appendChild(canvas);
   
-  if (this.position == 'left') {
+  // Left and right positioning are disabled for IE
+  if (Tipz.position == 'left' && !document.all) {
     // Set the postition of the canvas   
-    canvas.style.left = domLeftPos - (domWidth/2) + 'px';
-    canvas.style.top = domTopPos + 'px';
+    canvas.style.left = domLeftPos - domWidth/1.2 + 'px';
+    canvas.style.top = domTopPos - 5 + 'px';
     
     // Set the content style
     content.style.cssFloat = 'left';
     content.style.width = content.offsetWidth - 5 + 'px';
     
     // Create the arrow
-    var arrow = this.makeRightArrow();
+    var arrow = Tipz.makeRightArrow();
     arrow.style.cssFloat = 'left';
     arrow.style.marginTop = (content.offsetHeight/2) - 4 + 'px';
     
@@ -490,7 +505,7 @@ Tipz.prototype.show = function(DOMObject, tip) {
     canvas.appendChild(arrow);
   }
   
-  if (this.position != 'right') {
+  if (Tipz.position != 'right') {
     // Compensate the position
     canvas.style.left = canvas.offsetLeft - (canvas.offsetWidth/2) + 'px';
   } else {
@@ -502,13 +517,22 @@ Tipz.prototype.show = function(DOMObject, tip) {
   canvas.style.visibility = '';
 
   // Fade the tip in
-  this.fade(100);
+  Tipz.fade(100);
+  
+  // Auxiliar var to keep the tip scope
+  //var thisTip = Tipz;
+  
+  // Adding the hide to the DOM object onmouseout 
+  DOMObject.onmouseout = function()
+  {
+    Tipz.hide();
+  }
   
   // Adding the tip to the array of tips
-  this.tipz.push(canvas);
+  Tipz.tipz.push(canvas);
   
   // Increase the instances counter
-  this.instances++;
+  Tipz.instances++;
   
   return true;
 }
@@ -519,12 +543,12 @@ Tipz.prototype.show = function(DOMObject, tip) {
   
   @return      true
 */
-Tipz.prototype.hide = function() {
+Tipz.hide = function() {
   // Fade the tip out
-  this.fade(this.opacity, 0);
+  Tipz.fade(Tipz.opacity, 0);
   
   // Decrease the instances number
-  this.instances--;
+  Tipz.instances--;
   
   return true;
 }
