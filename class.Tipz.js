@@ -1,10 +1,10 @@
 /**
   Name: Tipz
   Author: Juanma Cabello
-  Last modification date: 12/03/2010
-  Version: 1.0
+  Last modification date: 19/03/2010
+  Version: 1.2
   
-  Show a fancy tooltip from a DOMObject passed as parameter.
+  Show a fancy tooltip from a DOMObject passed as a parameter.
    
   Tipz LIBRARY IS MIT LICENSED
 */
@@ -318,7 +318,7 @@ Tipz.makeLeftArrow = function() {
   
   @return      true
 */
-Tipz.fade = function(startOpacity, endOpacity, time) {
+Tipz.fade = function(startOpacity, endOpacity) {
   // Get the DOM object which the transtition is for
   var DOMObject = document.getElementById(Tipz.id);
   
@@ -338,9 +338,6 @@ Tipz.fade = function(startOpacity, endOpacity, time) {
 	} else {
 	  var remove = false;
 	}
-	
-	// Optimize time is 1
-	time = typeof time == 'undefined' ? 1 : time;
 
 	DOMObject.style.opacity = startOpacity/100;
 	
@@ -379,9 +376,48 @@ Tipz.fade = function(startOpacity, endOpacity, time) {
 		}
 	}
 	
-	var interval = setInterval(fade, time);
+	var interval = setInterval(fade);
 }
 
+/**
+  @name        getPosition
+  @description Get the position where the tip is needed to be
+  @params	   DOMObject The DOM object which the tip is for
+  
+  @return      position The position of the tip
+*/
+Tipz.getPosition = function(DOMObject) {
+	
+	// A hash containing the offsetTop and offsetLeft
+	var position = {
+		offsetTop  : 0,
+		offsetLeft : 0
+	};
+	
+	// While the parentDOM has a parent node, 
+	// it keeps adding pixels to the offsets 
+	var positioning = function(parentDOM) {
+		while(parentDOM.parentNode) {
+			position.offsetTop += parentDOM.offsetTop;
+			position.offsetLeft += parentDOM.offsetLeft;
+			
+			parentDOM = parentDOM.parentNode;
+		}
+		
+		// Adding the offsets of the first DOM
+		position.offsetTop += DOMObject.offsetTop;
+		position.offsetLeft += DOMObject.offsetLeft;
+		
+		// Return the position to be returned to the show method
+		return position;
+	}
+	
+	// Getting the position
+	position = positioning(DOMObject.parentNode);	
+	
+	// Return the position
+	return position;
+}
 
 // Main methods section
 /** 
@@ -406,11 +442,15 @@ Tipz.show = function(DOMObject, tip) {
   if (document.getElementById(Tipz.id)) {
     document.body.removeChild(document.getElementById(Tipz.id));
   }
-  // Get the position and the dimsion of the DOM object
+  
+  // Get the position and the dimension of the DOM object
   var domHeight  = DOMObject.offsetHeight;
   var domWidth   = DOMObject.offsetWidth;
-  var domTopPos  = DOMObject.offsetTop;
-  var domLeftPos = DOMObject.offsetLeft;
+  
+  // Get the position where the tip is going to be printed
+  var position   = Tipz.getPosition(DOMObject);
+  var domTopPos  = position.offsetTop;
+  var domLeftPos = position.offsetLeft;
   
   // Canvas where the tooltip is going to be printed
   var canvas = document.createElement('div');
